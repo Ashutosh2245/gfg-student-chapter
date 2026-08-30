@@ -16,7 +16,7 @@
 
   <p align="center">
     <b>Official Portal for Noida Institute of Engineering and Technology (NIET)</b><br />
-    Featuring a high-performance public community site and a role-based executive management dashboard.
+    Featuring permanent data retention, custom password security, and an executive management dashboard.
   </p>
 
   [🌐 Live Production Website](https://gfg-student-chapter.vercel.app) • [👨‍💻 Creator Profile](https://www.linkedin.com/in/ashutosh-kumar-92612b236) • [📖 API Specifications](#-api-specifications)
@@ -36,6 +36,25 @@
   [![GitHub](https://img.shields.io/badge/GitHub-Ashutosh2245-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Ashutosh2245)
 
 </div>
+
+---
+
+## 💾 Permanent Data Persistence Engine (`dataStore.json`)
+
+All administrative edits, profile updates, member onboardings, avatar changes, task creations, and password resets **are automatically saved to a persistent JSON store (`backend/db/dataStore.json`)**.
+
+- ✅ **Permanent Retention**: Changes are saved immediately and persist across browser refreshes, server restarts, and redeployments.
+- ✅ **Bcrypt Password Security**: Passwords can be changed by members anytime via `/dashboard/profile` or overridden by the President via `/admin/members`.
+
+---
+
+## 🔑 Account Authentication & Custom Passwords
+
+Public registration is disabled for chapter security. Accounts are created by the President, and passwords can be updated freely:
+
+1. **Self-Service Password Change**: Logged-in members can change their password under **[My Profile & Settings](https://gfg-student-chapter.vercel.app/dashboard/profile)**.
+2. **President Admin Password Override**: The Chapter President can force-update any member's password from **[Member Management](https://gfg-student-chapter.vercel.app/admin/members)**.
+3. **Email Password Reset (`/forgot-password`)**: Members can request a 6-digit security reset code via email to set a new password anytime.
 
 ---
 
@@ -69,8 +88,6 @@
 
 ## ⚡ System Architecture
 
-The ecosystem consists of **Two Isolated Core Systems**:
-
 ```mermaid
 graph TD
     A[Public Visitors & Students] -->|Public Routes| B[Public Website Portal]
@@ -83,22 +100,8 @@ graph TD
     H -->|President Role| I[Admin Roster Control, Member Onboarding, Edit & Delete]
     H -->|Executive Leadership| J[Chapter Analytics & Audit Logging]
     H -->|Team Lead / Co-Lead| K[Department Tasks, Proof Verification & XP Grants]
-    H -->|Member Dashboard| L[Self-Service Profile Photo, Bio & Security Settings]
+    H -->|Member Dashboard| L[Self-Service Profile Photo, Bio & Password Settings]
 ```
-
-### 1. 🌐 Public Community Portal
-- **Hero & Chapter Branding**: Official GeeksforGeeks branding, dynamic statistics counters, and event spotlight banners.
-- **7 Department Showcase**: Deep-dive pages for Technical, Social Media, Event Management, Design, Content & Research, Media, and PR teams.
-- **Universal Leaderboard**: Live ranking board calculated dynamically from completed tasks, hackathons, and awards.
-- **Events Hub**: Direct registration links for flagship 24-hour hackathons and technical bootcamps.
-
-### 2. 🔒 Private Management Portal (RBAC)
-- **Zero Public Registration**: Strictly locked to authorized accounts created by the Chapter President.
-- **Role Hierarchy**:
-  - `PRESIDENT`: Full administrative authority, member account onboarding, force profile edits, account deletions, and system audit logging.
-  - `VICE_PRESIDENT` & `COORDINATOR`: Executive analytics, cross-department governance, and strategy monitoring.
-  - `LEAD` (Team Leads): Department-scoped task creation, submission verification, and XP distribution.
-  - `CO_LEAD` (Co-Leads): Interactive task desk, deliverable proof submissions (GitHub PRs / Google Drive), and profile customization.
 
 ---
 
@@ -116,14 +119,14 @@ graph TD
 
 ---
 
-## 🔑 Demo Access Credentials
+## 🔑 Role Accounts & Password Control
 
-| Role | Email Address | Password | Privileges |
-| :--- | :--- | :--- | :--- |
-| **👑 President** | `president@gfgniet.ac.in` | `gfgniet2026` | Full Admin Control, Edit/Delete Members, Audit Logs |
-| **💻 Tech Lead** | `lead.tech@gfgniet.ac.in` | `gfgniet2026` | Technical Task Creation & Code Review |
-| **⚡ Tech Co-Lead** | `colead.tech1@gfgniet.ac.in` | `gfgniet2026` | Task Submissions, Self Profile & Photo Edit |
-| **🎨 Design Lead** | `lead.design@gfgniet.ac.in` | `gfgniet2026` | Design Task Creation & Deliverable Verification |
+| Role | Email Address | Custom Password Controls |
+| :--- | :--- | :--- |
+| **👑 President** | `president@gfgniet.ac.in` | Full Admin Control, Edit/Delete Members, Force Reset Password |
+| **💻 Tech Lead** | `lead.tech@gfgniet.ac.in` | Task Creation, Code Review, Self Password Edit |
+| **⚡ Tech Co-Lead** | `colead.tech1@gfgniet.ac.in` | Deliverable Submissions, Self Profile & Password Edit |
+| **🎨 Design Lead** | `lead.design@gfgniet.ac.in` | Design Task Creation, Proof Review, Self Password Edit |
 
 ---
 
@@ -137,7 +140,7 @@ graph TD
 | `GET` | `/api/users` | Public | Retrieve chapter member roster with filters |
 | `PUT` | `/api/users/:id` | President | Full administrative profile edit & password reset |
 | `DELETE`| `/api/users/:id` | President | Permanent member account deletion |
-| `PATCH`| `/api/users/profile/update`| Auth Member| Self-service profile, avatar photo & social update |
+| `PATCH`| `/api/users/profile/update`| Auth Member| Self-service profile, avatar photo & password update |
 | `GET` | `/api/tasks` | Auth Member| Fetch assigned department tasks |
 | `POST` | `/api/tasks/:id/submit` | Co-Lead | Submit deliverable proof (GitHub / Google Drive) |
 | `GET` | `/api/leaderboard` | Public | Fetch real-time XP rankings |
@@ -155,7 +158,7 @@ cd gfg-student-chapter
 cd backend
 npm install
 node server.js
-# Backend listening on http://localhost:5000
+# Backend listening on http://localhost:5000 (Data saves to dataStore.json)
 
 # 3. Start Frontend Dev Server
 cd ../frontend

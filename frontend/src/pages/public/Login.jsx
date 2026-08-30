@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { Code, Shield, Lock, Mail, ArrowRight, AlertCircle, KeyRound } from 'lucide-react';
+import { Shield, Lock, Mail, ArrowRight, AlertCircle, KeyRound } from 'lucide-react';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -29,7 +29,7 @@ export const Login = () => {
         navigate('/dashboard', { replace: true });
       }
     } catch (err) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      setError(err.message || 'Login failed. Please check your email and password.');
     } finally {
       setSubmitting(false);
     }
@@ -46,7 +46,7 @@ export const Login = () => {
         
         {/* Header */}
         <div className="text-center space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-gfg-500/20 border border-gfg-500/40 flex items-center justify-center text-gfg-accent mx-auto">
+          <div className="w-12 h-12 rounded-2xl bg-gfg-500/20 border border-gfg-500/40 flex items-center justify-center text-gfg-accent mx-auto shadow-xl">
             <Shield className="w-6 h-6" />
           </div>
           <h2 className="text-3xl font-extrabold text-white">Management Portal Login</h2>
@@ -57,31 +57,31 @@ export const Login = () => {
 
         {/* Demo Quick Accounts */}
         <div className="bg-dark-card border border-dark-border rounded-2xl p-4 space-y-2 text-xs">
-          <span className="text-[11px] font-mono font-semibold text-gfg-accent uppercase tracking-wider block">Demo Login Shortcuts (Click to fill)</span>
+          <span className="text-[11px] font-mono font-semibold text-gfg-accent uppercase tracking-wider block">Authorized Demo Shortcuts (Click to select role)</span>
           <div className="grid grid-cols-2 gap-2 font-mono">
             <button
               onClick={() => fillQuickDemo('president@gfgniet.ac.in')}
-              className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300"
+              className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300 hover:text-white transition-colors"
             >
               👑 President
             </button>
             <button
               onClick={() => fillQuickDemo('lead.tech@gfgniet.ac.in')}
-              className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300"
+              className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300 hover:text-white transition-colors"
             >
-              💻 Tech Team Lead
+              💻 Tech Lead
             </button>
             <button
               onClick={() => fillQuickDemo('colead.tech1@gfgniet.ac.in')}
-              className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300"
+              className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300 hover:text-white transition-colors"
             >
               ⚡ Tech Co-Lead
             </button>
             <button
-              onClick={() => fillQuickDemo('lead.design@gfgniet.ac.in')}
-              className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300"
+              onClick={() => fillQuickDemo('vp.tech@gfgniet.ac.in')}
+              className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300 hover:text-white transition-colors"
             >
-              🎨 Design Lead
+              🚀 Vice President
             </button>
           </div>
         </div>
@@ -151,7 +151,7 @@ export const Login = () => {
           </form>
 
           <p className="text-[11px] text-gray-500 text-center">
-            Public signup is disabled. New accounts are generated exclusively by the Chapter President.
+            Public signup is disabled. New accounts are generated exclusively by the Chapter President. Members can reset or update passwords via email or settings.
           </p>
 
         </div>

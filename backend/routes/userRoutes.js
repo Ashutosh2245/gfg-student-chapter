@@ -60,6 +60,9 @@ router.patch('/profile/update', authenticateToken, async (req, res) => {
 
     user.updated_at = new Date().toISOString();
 
+    // Persist permanently to disk
+    dbInstance.saveToFile();
+
     const dept = dbInstance.departments.find(d => d.id === user.department_id);
     const { password_hash, ...updatedProfile } = user;
 
@@ -151,6 +154,9 @@ router.put('/:id', authenticateToken, authorizeRoles('PRESIDENT'), async (req, r
       created_at: new Date().toISOString()
     });
 
+    // Persist permanently to disk
+    dbInstance.saveToFile();
+
     const { password_hash, ...updatedUser } = user;
 
     res.json({
@@ -191,6 +197,9 @@ router.delete('/:id', authenticateToken, authorizeRoles('PRESIDENT'), async (req
       created_at: new Date().toISOString()
     });
 
+    // Persist permanently to disk
+    dbInstance.saveToFile();
+
     res.json({
       success: true,
       message: `Member account for ${deletedUser.name} deleted permanently.`
@@ -213,6 +222,7 @@ router.patch('/:id/status', authenticateToken, authorizeRoles('PRESIDENT'), asyn
     }
 
     user.is_active = is_active;
+    dbInstance.saveToFile();
     res.json({ success: true, message: `User active status updated to ${is_active}`, user });
   } catch (err) {
     res.status(500).json({ success: false, message: 'Error updating user status.' });
