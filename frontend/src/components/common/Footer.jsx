@@ -33,10 +33,10 @@ export const Footer = () => {
               GeeksforGeeks Student Chapter at Noida Institute of Engineering and Technology (NIET). Fostering technical excellence, open-source innovation, and algorithmic mastery.
             </p>
             <div className="flex space-x-3 pt-2">
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-lg bg-dark-bg border border-dark-border flex items-center justify-center text-gray-400 hover:text-gfg-accent hover:border-gfg-accent/50 transition-all">
+              <a href="https://www.linkedin.com/in/ashutosh-kumar-92612b236" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-lg bg-dark-bg border border-dark-border flex items-center justify-center text-gray-400 hover:text-gfg-accent hover:border-gfg-accent/50 transition-all">
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a href="https://github.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-lg bg-dark-bg border border-dark-border flex items-center justify-center text-gray-400 hover:text-gfg-accent hover:border-gfg-accent/50 transition-all">
+              <a href="https://github.com/Ashutosh2245/gfg-student-chapter" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-lg bg-dark-bg border border-dark-border flex items-center justify-center text-gray-400 hover:text-gfg-accent hover:border-gfg-accent/50 transition-all">
                 <Github className="w-4 h-4" />
               </a>
               <a href="https://instagram.com" target="_blank" rel="noreferrer" className="w-9 h-9 rounded-lg bg-dark-bg border border-dark-border flex items-center justify-center text-gray-400 hover:text-gfg-accent hover:border-gfg-accent/50 transition-all">
@@ -87,10 +87,20 @@ export const Footer = () => {
 
         </div>
 
+        {/* Footer Bottom Credit Bar */}
         <div className="mt-12 pt-8 border-t border-dark-border flex flex-col md:flex-row items-center justify-between text-xs text-gray-500">
           <p>© {new Date().getFullYear()} GeeksforGeeks Student Chapter NIET. All rights reserved.</p>
-          <p className="flex items-center gap-1 mt-2 md:mt-0">
-            Engineered with <Heart className="w-3.5 h-3.5 text-gfg-accent fill-gfg-accent inline" /> for the NIET Developer Community
+          <p className="flex items-center gap-1.5 mt-2 md:mt-0 font-medium">
+            Designed & Engineered with <Heart className="w-3.5 h-3.5 text-gfg-accent fill-gfg-accent inline" /> by{' '}
+            <a
+              href="https://www.linkedin.com/in/ashutosh-kumar-92612b236"
+              target="_blank"
+              rel="noreferrer"
+              className="font-bold text-gfg-accent hover:underline inline-flex items-center gap-1 bg-gfg-500/10 border border-gfg-500/30 px-2 py-0.5 rounded-lg transition-colors hover:bg-gfg-500 hover:text-white"
+            >
+              <span>Ashutosh Kumar</span>
+              <Linkedin className="w-3 h-3" />
+            </a>
           </p>
         </div>
       </div>
