@@ -35,9 +35,10 @@ export const Login = () => {
     }
   };
 
-  const fillQuickDemo = (demoEmail) => {
+  // Fills ONLY the email address (Password remains completely blank for manual user input)
+  const selectRoleEmail = (demoEmail) => {
     setEmail(demoEmail);
-    setPassword('gfgniet2026');
+    setPassword('');
   };
 
   return (
@@ -55,30 +56,36 @@ export const Login = () => {
           </p>
         </div>
 
-        {/* Demo Quick Accounts */}
+        {/* Quick Role Email Selector (Password is NOT auto-filled) */}
         <div className="bg-dark-card border border-dark-border rounded-2xl p-4 space-y-2 text-xs">
-          <span className="text-[11px] font-mono font-semibold text-gfg-accent uppercase tracking-wider block">Authorized Demo Shortcuts (Click to select role)</span>
+          <span className="text-[11px] font-mono font-semibold text-gfg-accent uppercase tracking-wider block">
+            Select Member Email ID (Password must be entered manually)
+          </span>
           <div className="grid grid-cols-2 gap-2 font-mono">
             <button
-              onClick={() => fillQuickDemo('president@gfgniet.ac.in')}
+              type="button"
+              onClick={() => selectRoleEmail('president@gfgniet.ac.in')}
               className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300 hover:text-white transition-colors"
             >
               👑 President
             </button>
             <button
-              onClick={() => fillQuickDemo('lead.tech@gfgniet.ac.in')}
+              type="button"
+              onClick={() => selectRoleEmail('lead.tech@gfgniet.ac.in')}
               className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300 hover:text-white transition-colors"
             >
               💻 Tech Lead
             </button>
             <button
-              onClick={() => fillQuickDemo('colead.tech1@gfgniet.ac.in')}
+              type="button"
+              onClick={() => selectRoleEmail('colead.tech1@gfgniet.ac.in')}
               className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300 hover:text-white transition-colors"
             >
               ⚡ Tech Co-Lead
             </button>
             <button
-              onClick={() => fillQuickDemo('vp.tech@gfgniet.ac.in')}
+              type="button"
+              onClick={() => selectRoleEmail('vp.tech@gfgniet.ac.in')}
               className="p-2 rounded bg-dark-bg border border-dark-border text-left hover:border-gfg-500 text-gray-300 hover:text-white transition-colors"
             >
               🚀 Vice President
@@ -151,7 +158,7 @@ export const Login = () => {
           </form>
 
           <p className="text-[11px] text-gray-500 text-center">
-            Public signup is disabled. New accounts are generated exclusively by the Chapter President. Members can reset or update passwords via email or settings.
+            Public signup is disabled. New accounts are generated exclusively by the Chapter President.
           </p>
 
         </div>
