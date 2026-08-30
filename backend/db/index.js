@@ -34,7 +34,7 @@ const initialUsers = [
   },
   {
     id: 2,
-    name: 'Ananya Verma',
+    name: 'Azad Giri',
     email: 'vp.tech@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'VICE_PRESIDENT',
@@ -48,7 +48,7 @@ const initialUsers = [
   },
   {
     id: 3,
-    name: 'Rohan Gupta',
+    name: 'Tanmay Singh',
     email: 'vp.ops@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'VICE_PRESIDENT',
@@ -62,7 +62,7 @@ const initialUsers = [
   },
   {
     id: 4,
-    name: 'Isha Patel',
+    name: 'Aryan Raj',
     email: 'coordinator1@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'COORDINATOR',
@@ -76,7 +76,7 @@ const initialUsers = [
   },
   {
     id: 5,
-    name: 'Kabir Das',
+    name: 'Shreya Pathak',
     email: 'coordinator2@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'COORDINATOR',
@@ -92,7 +92,7 @@ const initialUsers = [
   // 1. Technical Team (Lead + 3 Co-Leads)
   {
     id: 6,
-    name: 'Devansh Roy',
+    name: 'Abhineet Jha',
     email: 'lead.tech@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'LEAD',

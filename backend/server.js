@@ -66,7 +66,7 @@ app.use('*', (req, res) => {
   res.status(404).json({ success: false, message: 'Requested API endpoint does not exist.' });
 });
 
-// Graceful listen handler with fallback if port is occupied
+// Graceful listen handler for local execution
 const startServer = (portToTry) => {
   const server = app.listen(portToTry, () => {
     console.log(`🚀 GFG NIET Backend API Server running on port ${portToTry}`);
@@ -83,4 +83,8 @@ const startServer = (portToTry) => {
   });
 };
 
-startServer(PORT);
+if (require.main === module) {
+  startServer(PORT);
+}
+
+module.exports = app;
