@@ -30,11 +30,15 @@ export const Navbar = () => {
           {/* Official GFG Brand & Logo Emblem */}
           <Link to="/" className="flex items-center space-x-3.5 group">
             <div className="relative">
-              <div className="w-11 h-11 rounded-2xl bg-gfg-500/10 border border-gfg-500/40 p-2 flex items-center justify-center group-hover:border-gfg-accent group-hover:shadow-gfg-glow transition-all duration-300">
+              <div className="w-12 h-12 rounded-2xl bg-gfg-500/10 border border-gfg-500/40 p-1 flex items-center justify-center group-hover:border-gfg-accent group-hover:shadow-gfg-glow transition-all duration-300 overflow-hidden">
                 <img
-                  src=""C:\Users\Ashutosh Kumar\Desktop\gfg-student-chapter\frontend\public\avatars\WhatsApp Image 2026-04-10 at 20.01.01.jpeg""
+                  src="/logo.jpeg"
                   alt="GeeksforGeeks Official Logo"
-                  className="w-full h-full object-contain filter group-hover:brightness-110 transition-all"
+                  className="w-full h-full object-cover rounded-xl filter group-hover:brightness-110 transition-all"
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = '/WhatsApp%20Image%202026-04-10%20at%2020.01.01.jpeg';
+                  }}
                 />
               </div>
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-gfg-accent rounded-full border-2 border-dark-bg shadow-sm"></div>
