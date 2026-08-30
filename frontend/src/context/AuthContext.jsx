@@ -8,25 +8,25 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('gfg_token') || null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const initializeAuth = async () => {
-      if (token) {
-        try {
-          const res = await authAPI.getCurrentUser();
-          if (res.data.success) {
-            setUser(res.data.user);
-          } else {
-            logout();
-          }
-        } catch (err) {
-          console.error('Session initialization error:', err);
+  const fetchSession = async () => {
+    if (token) {
+      try {
+        const res = await authAPI.getCurrentUser();
+        if (res.data.success) {
+          setUser(res.data.user);
+        } else {
           logout();
         }
+      } catch (err) {
+        console.error('Session initialization error:', err);
+        logout();
       }
-      setLoading(false);
-    };
+    }
+    setLoading(false);
+  };
 
-    initializeAuth();
+  useEffect(() => {
+    fetchSession();
   }, [token]);
 
   const login = async (email, password) => {
@@ -49,6 +49,10 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
+  const updateUser = (updatedData) => {
+    setUser(prev => ({ ...prev, ...updatedData }));
+  };
+
   const isExecutive = () => user && ['PRESIDENT', 'VICE_PRESIDENT', 'COORDINATOR'].includes(user.role);
   const isPresident = () => user && user.role === 'PRESIDENT';
   const isLead = () => user && user.role === 'LEAD';
@@ -61,6 +65,8 @@ export const AuthProvider = ({ children }) => {
       loading,
       login,
       logout,
+      updateUser,
+      fetchSession,
       isExecutive,
       isPresident,
       isLead,

@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { formatAvatarUrl } from '../../utils/formatAvatar';
 
 export const MemberManagement = () => {
-  const { isPresident } = useAuth();
+  const { user, isPresident, updateUser } = useAuth();
   const [members, setMembers] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -120,6 +120,9 @@ export const MemberManagement = () => {
       });
       if (res.data.success) {
         setFormSuccess(`Updated ${editingMember.name}'s profile successfully!`);
+        if (user && editingMember.id === user.id && res.data.user) {
+          updateUser(res.data.user);
+        }
         setEditingMember(null);
         fetchMembers();
       }

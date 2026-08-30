@@ -6,13 +6,13 @@ import { User, Camera, Linkedin, Instagram, KeyRound, CheckCircle2, AlertCircle,
 import { formatAvatarUrl } from '../../utils/formatAvatar';
 
 export const MyProfile = () => {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const [profile, setProfile] = useState({
     name: user?.name || '',
-    bio: '',
-    avatar_url: '',
-    linkedin_url: '',
-    instagram_url: '',
+    bio: user?.bio || '',
+    avatar_url: user?.avatar_url || '',
+    linkedin_url: user?.linkedin_url || '',
+    instagram_url: user?.instagram_url || '',
     newPassword: ''
   });
   const [loading, setLoading] = useState(true);
@@ -61,6 +61,9 @@ export const MyProfile = () => {
       if (res.data.success) {
         setMessage('Your profile details and image have been updated successfully!');
         setProfile(prev => ({ ...prev, avatar_url: formattedAvatar, newPassword: '' }));
+        if (res.data.user) {
+          updateUser(res.data.user);
+        }
       }
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to update profile.');
@@ -135,7 +138,7 @@ export const MyProfile = () => {
                 <Camera className="w-4 h-4 text-gray-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
-                  placeholder="/avatars/WhatsApp Image 2026-04-10 at 20.01.01.jpeg"
+                  placeholder="/avatars/filename.jpg"
                   value={profile.avatar_url}
                   onChange={(e) => setProfile({ ...profile, avatar_url: e.target.value })}
                   className="w-full bg-dark-bg border border-dark-border rounded-xl pl-10 pr-4 py-2.5 text-white focus:outline-none focus:border-gfg-accent"

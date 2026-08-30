@@ -17,12 +17,10 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ success: false, message: 'Email and password are required.' });
     }
 
-    const userResult = await query('SELECT * FROM users WHERE email = $1', [email]);
-    if (userResult.rows.length === 0) {
+    const user = dbInstance.users.find(u => u.email.toLowerCase() === String(email).toLowerCase());
+    if (!user) {
       return res.status(401).json({ success: false, message: 'Invalid email credentials.' });
     }
-
-    const user = userResult.rows[0];
 
     if (!user.is_active) {
       return res.status(403).json({ success: false, message: 'Account is deactivated. Contact chapter President.' });
@@ -39,22 +37,16 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid password credentials.' });
     }
 
-    const deptResult = await query('SELECT * FROM departments WHERE id = $1', [user.department_id]);
-    const department = deptResult.rows[0] || null;
+    const department = dbInstance.departments.find(d => d.id === user.department_id) || null;
+    const { password_hash, ...publicUser } = user;
 
     const payload = {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      department_id: user.department_id,
-      department_name: department ? department.name : null,
-      department_slug: department ? department.slug : null,
-      position: user.position,
-      avatar_url: user.avatar_url
+      ...publicUser,
+      department_name: department ? department.name : 'Executive Board',
+      department_slug: department ? department.slug : 'executive'
     };
 
-    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '7d' });
+    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: '7d' });
 
     res.json({
       success: true,
@@ -72,18 +64,20 @@ router.post('/login', async (req, res) => {
 // GET /api/auth/me - Verify current session
 router.get('/me', authenticateToken, async (req, res) => {
   try {
-    const userResult = await query('SELECT id, name, email, role, department_id, position, bio, avatar_url, linkedin_url, instagram_url, is_active FROM users WHERE id = $1', [req.user.id]);
-    if (userResult.rows.length === 0) {
+    const user = dbInstance.users.find(u => String(u.id) === String(req.user.id));
+    if (!user) {
       return res.status(404).json({ success: false, message: 'User record not found.' });
     }
-    const user = userResult.rows[0];
-    const deptResult = await query('SELECT * FROM departments WHERE id = $1', [user.department_id]);
+
+    const dept = dbInstance.departments.find(d => d.id === user.department_id);
+    const { password_hash, ...publicUser } = user;
     
     res.json({
       success: true,
       user: {
-        ...user,
-        department: deptResult.rows[0] || null
+        ...publicUser,
+        department_name: dept ? dept.name : 'Executive Board',
+        department_slug: dept ? dept.slug : 'executive'
       }
     });
   } catch (err) {
@@ -101,14 +95,12 @@ router.post('/forgot-password', async (req, res) => {
 
     const user = dbInstance.users.find(u => u.email.toLowerCase() === email.toLowerCase());
     if (!user) {
-      // Security practice: Don't leak if email exists or not
       return res.json({
         success: true,
         message: 'If an account exists with this email, password reset instructions have been generated.'
       });
     }
 
-    // Generate secure 6-digit PIN & Token
     const resetCode = String(Math.floor(100000 + Math.random() * 900000));
     const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, { expiresIn: '15m' });
 
@@ -117,7 +109,7 @@ router.post('/forgot-password', async (req, res) => {
     res.json({
       success: true,
       message: 'Password reset code generated successfully.',
-      resetCode, // Return code directly for seamless demo testing
+      resetCode,
       resetToken: token
     });
 
@@ -147,8 +139,10 @@ router.post('/reset-password', async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     user.password_hash = await bcrypt.hash(newPassword, salt);
+    user.updated_at = new Date().toISOString();
 
     resetTokens.delete(email.toLowerCase());
+    dbInstance.saveToFile();
 
     dbInstance.auditLogs.push({
       id: dbInstance.auditLogs.length + 1,
@@ -205,6 +199,7 @@ router.post('/create-member', authenticateToken, authorizeRoles('PRESIDENT'), as
     };
 
     dbInstance.users.push(newUser);
+    dbInstance.saveToFile();
 
     dbInstance.auditLogs.push({
       id: dbInstance.auditLogs.length + 1,
