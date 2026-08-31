@@ -459,6 +459,15 @@ class DatabaseManager {
         const data = JSON.parse(raw);
         this.departments = data.departments || [...initialDepartments];
         this.users = data.users || [...initialUsers];
+
+        // Guarantee that code edits to initialUsers names are always synchronized
+        if (this.users && this.users.length > 0) {
+          this.users = this.users.map(u => {
+            const initUser = initialUsers.find(iu => iu.id === u.id);
+            return initUser ? { ...u, name: initUser.name } : u;
+          });
+        }
+
         this.tasks = data.tasks || [];
         this.taskSubmissions = data.taskSubmissions || [];
         this.xpTransactions = data.xpTransactions || [];
