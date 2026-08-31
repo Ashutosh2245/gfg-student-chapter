@@ -23,7 +23,7 @@ const initialUsers = [
   // Executive Leadership (5)
   {
     id: 1,
-    name: 'Aarav Sharma',
+    name: 'Ashutosh Kumar',
     email: 'president@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'PRESIDENT',
@@ -37,7 +37,7 @@ const initialUsers = [
   },
   {
     id: 2,
-    name: 'Ananya Verma',
+    name: 'Azad Giri',
     email: 'vp.tech@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'VICE_PRESIDENT',
@@ -51,7 +51,7 @@ const initialUsers = [
   },
   {
     id: 3,
-    name: 'Rohan Gupta',
+    name: 'Tanmay Singh',
     email: 'vp.ops@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'VICE_PRESIDENT',
@@ -65,7 +65,7 @@ const initialUsers = [
   },
   {
     id: 4,
-    name: 'Isha Patel',
+    name: 'Aryan Raj',
     email: 'coordinator1@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'COORDINATOR',
@@ -79,7 +79,7 @@ const initialUsers = [
   },
   {
     id: 5,
-    name: 'Kabir Das',
+    name: 'Shreya Pathak',
     email: 'coordinator2@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'COORDINATOR',
@@ -95,7 +95,7 @@ const initialUsers = [
   // 1. Technical Team (1 Lead + 2 Co-Leads)
   {
     id: 6,
-    name: 'Devansh Roy',
+    name: 'Abhineet Jha',
     email: 'lead.tech@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'LEAD',
@@ -139,7 +139,7 @@ const initialUsers = [
   // 2. Social Media Team (1 Lead + 2 Co-Leads)
   {
     id: 9,
-    name: 'Priya Sharma',
+    name: 'Rachna Kashyap',
     email: 'lead.social@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'LEAD',
@@ -183,7 +183,7 @@ const initialUsers = [
   // 3. Event Management Team (1 Lead + 2 Co-Leads)
   {
     id: 12,
-    name: 'Aditya Srivastava',
+    name: 'Arpita Sethi',
     email: 'lead.event@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'LEAD',
@@ -227,7 +227,7 @@ const initialUsers = [
   // 4. Design Team (1 Lead + 2 Co-Leads)
   {
     id: 15,
-    name: 'Sanya Kapoor',
+    name: 'Dev Raj',
     email: 'lead.design@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'LEAD',
@@ -271,7 +271,7 @@ const initialUsers = [
   // 5. Content & Research Team (1 Lead + 2 Co-Leads)
   {
     id: 18,
-    name: 'Ishaan Deshmukh',
+    name: 'Gagan Singh',
     email: 'lead.content@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'LEAD',
@@ -315,7 +315,7 @@ const initialUsers = [
   // 6. Photography & Video Editing Team (1 Lead + 2 Co-Leads)
   {
     id: 21,
-    name: 'Varun Grover',
+    name: 'Mohini Dubey',
     email: 'lead.media@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'LEAD',
@@ -359,7 +359,7 @@ const initialUsers = [
   // 7. PR & Outreach Team (1 Lead + 2 Co-Leads)
   {
     id: 24,
-    name: 'Karan Bhasin',
+    name: 'Abhinav Yadav',
     email: 'lead.pr@gfgniet.ac.in',
     password_hash: DEFAULT_PASSWORD_HASH,
     role: 'LEAD',
